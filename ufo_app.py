@@ -8,7 +8,12 @@ st.set_page_config(page_title="UFO Sightings Explorer", layout="wide")
 
 st.title("🛸 UFO Sightings Explorer")
 
-st.markdown("Explore real UFO sightings. Choose a query, or build your own...")
+st.markdown("👽 Welcome, Earthling.")
+st.markdown("""
+    > You’ve stumbled upon a portal into the unknown.
+    > Here lie over 70,000 reported encounters, eerie lights, and glimpses from the sky.
+    > 🛸 Learn at your own risk. Filter sightings. Decode patterns. Add your own encounter. Be-boop.
+""")
 
 # --- Layout for query input ---
 col1, col2 = st.columns([4, 1])
