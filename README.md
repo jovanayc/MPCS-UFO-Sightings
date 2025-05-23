@@ -4,7 +4,7 @@ MPCS Databases Final Project
 By Alice Blander, Jovanay Carter, and Carter Hames
 
 **Quick Way to View App**
-- View online to see the database  with: https://your-streamlit-url.streamlit.app
+- View online to see the database with: https://ufo-sightings-uchicago.streamlit.app/
 
 **Project Intro**
 The following is a simple, deployed streamlit web app for users to explore historical events and evidence related to UFO sightings in the U.S.
