@@ -28,7 +28,7 @@ Source Control: GitHub
 
 **How to Run the App Locally**
 - Clone the Repo
-- pip install dependencies: pip install -r requirements.txt
+- Install dependencies: pip install -r requirements.txt
 - Create a file at .streamlit/secrets.toml with the folowing information:
     [mysql]
     host = "your-db-host"
@@ -36,7 +36,8 @@ Source Control: GitHub
     password = "your-db-password"
     database = "ufo_db"
 - Run the app
-    streamlit run streamlit_app.py
+    streamlit run ufo_app.py
+
 
 
 
