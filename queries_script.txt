@@ -1,0 +1,67 @@
+-- Final Project UFO Database
+
+CREATE DATABASE UFO;
+
+USE UFO;
+-- Formatted in order of tables with no FOREIGN KEYS first
+CREATE TABLE Location(
+    LocationID INT NOT NULL AUTO_INCREMENT,
+    City VARCHAR(50) NOT NULL,
+    State VARCHAR(50) NOT NULL,
+    Country VARCHAR(50) NOT NULL,
+    Longitude DECIMAL(8,5),
+    Latitude DECIMAL(8,5),
+    PRIMARY KEY (LocationID)
+);
+
+CREATE TABLE UFO(
+    UFOID INT NOT NULL AUTO_INCREMENT,
+    Speed VARCHAR(50) NOT NULL,
+    Shape VARCHAR(50) NOT NULL,
+    Color VARCHAR (50) NOT NULL,
+    MultipleCrafts BOOL NOT NULL DEFAULT FALSE,
+    State VARCHAR(20) NOT NULL,
+    PRIMARY KEY (UFOID)
+);
+
+CREATE TABLE HistoricalEvent(
+	EventID INT NOT NULL AUTO_INCREMENT,
+    EventDatetime DATETIME NOT NULL,
+    EventTitle VARCHAR(100) NOT NULL,
+    EventDescription VARCHAR(500) NOT NULL,
+    PRIMARY KEY (EventID)
+    );    
+
+CREATE TABLE Article(
+    ArticleID INT NOT NULL AUTO_INCREMENT,
+    ArticleTitle VARCHAR(200) NOT NULL,
+    URL VARCHAR(200) NOT NULL,
+    Published DATE,
+    Publisher VARCHAR(100),
+    PRIMARY KEY (ArticleID)
+);
+
+
+CREATE TABLE Sightings(
+    SightingID INT NOT NULL,
+    SightingDescription VARCHAR(500) NOT NULL,
+    Duration INT,
+    UFOID INT NOT NULL,
+    LocationID INT NOT NULL,
+    VisitTime DATETIME NOT NULL,
+    PRIMARY KEY (SightingID),
+    -- ON DELETE CASCADE or RESTRICT?
+    FOREIGN KEY(LocationID) REFERENCES Location(LocationID) ON DELETE CASCADE,
+    FOREIGN KEY(UFOID) REFERENCES UFO(UFOID) ON DELETE CASCADE
+);
+
+CREATE TABLE KeywordTag(
+	TagID INT NOT NULL,
+    SightingID INT NOT NULL,
+    -- How to make Keywords DISTINCT -> LINE 67
+	Keyword  VARCHAR(50) NOT NULL,
+    PRIMARY KEY (TagID),
+    FOREIGN KEY(SightingID) REFERENCES Sightings(SightingID),
+    UNIQUE KEY UniqueSightingKeyword (SightingID, Keyword)
+    );
+
