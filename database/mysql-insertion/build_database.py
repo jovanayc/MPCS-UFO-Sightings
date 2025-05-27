@@ -96,7 +96,7 @@ tables['Sightings'] = (
         UFOID               INT      ,
         LocationID          INT      ,
         Occurred            DATETIME NOT NULL,
-        DateReported        DATETIME NOT NULL,
+        DateReported        DATE NOT NULL,
         PRIMARY KEY (SightingID),
         -- ON DELETE CASCADE or RESTRICT?
         FOREIGN KEY (LocationID)
