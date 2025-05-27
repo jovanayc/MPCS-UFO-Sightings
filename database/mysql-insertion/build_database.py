@@ -56,11 +56,15 @@ tables['UFO'] = (
 tables['HistoricalEvent'] = (
     """
     CREATE TABLE IF NOT EXISTS HistoricalEvent(
-        EventID           INT      NOT NULL AUTO_INCREMENT,
-        EventDatetime     DATETIME NOT NULL,
+        EventID           INT      NOT NULL,
+        LocationID        INT,
+        EventDate         DATE,
         EventTitle        VARCHAR(100) NOT NULL,
         EventDescription  VARCHAR(500) NOT NULL,
-        PRIMARY KEY (EventID)
+        PRIMARY KEY (EventID),
+        FOREIGN KEY (LocationID)
+            REFERENCES Location(LocationID)
+            ON DELETE SET NULL
     );
     """
 )
@@ -69,10 +73,14 @@ tables['Article'] = (
     CREATE TABLE IF NOT EXISTS Article(
         ArticleID     INT NOT NULL AUTO_INCREMENT,
         ArticleTitle  VARCHAR(200) NOT NULL,
+        EventID       INT,
         URL           VARCHAR(200) NOT NULL,
         Published     DATE,
         Publisher     VARCHAR(100),
-        PRIMARY KEY (ArticleID)
+        PRIMARY KEY (ArticleID),
+        FOREIGN KEY (EventID)
+            REFERENCES HistoricalEvent(EventID)
+            ON DELETE SET NULL
     );
     """
 )
@@ -127,6 +135,33 @@ tables['KeywordsInSighting'] = (
             REFERENCES Sightings(SightingID),
         FOREIGN KEY (TagID)
             REFERENCES KeywordTag(TagID)
+    );
+    """
+)
+
+# adding a separate table for event keywords – I couldn't figure out how to combine these
+# easily and I think there might be reasons to keep them separate.
+tables['EventKeywordTag'] = (
+    """
+    CREATE TABLE IF NOT EXISTS EventKeywordTag(
+        TagID     INT    NOT NULL,
+        Keyword   VARCHAR(50) NOT NULL,
+        PRIMARY KEY (TagID)
+    );
+    """
+)
+
+# keyword event map
+tables['KeywordsInEvent'] = (
+    """
+    CREATE TABLE IF NOT EXISTS KeywordsInEvent(
+        TagID     INT    NOT NULL,
+        EventID INT   NOT NULL,
+        PRIMARY KEY (EventID, TagID),
+        FOREIGN KEY (EventID)
+            REFERENCES HistoricalEvent(EventID),
+        FOREIGN KEY (TagID)
+            REFERENCES EventKeywordTag(TagID)
     );
     """
 )
