@@ -1,7 +1,7 @@
 # MPCS-UFO-Sightings
 May 28, 2025
 MPCS Databases Final Project
-By Alice Blander, Jovanay Carter, and Carter Hames
+By Alice Blander, Jovanay Carter, and Carter Harms
 
 **Quick Way to View App**
 - View online to see the database with: https://ufo-sightings-uchicago.streamlit.app/
