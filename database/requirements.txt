@@ -1,4 +1,0 @@
-my-sql-connector
-kagglehub
-pandas
-np
