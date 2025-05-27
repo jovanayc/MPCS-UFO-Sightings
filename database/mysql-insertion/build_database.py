@@ -53,6 +53,8 @@ tables['UFO'] = (
     );
     """
 )
+
+# changes: added foreign key location id
 tables['HistoricalEvent'] = (
     """
     CREATE TABLE IF NOT EXISTS HistoricalEvent(
