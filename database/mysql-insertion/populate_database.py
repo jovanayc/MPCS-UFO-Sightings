@@ -86,6 +86,37 @@ loc_rows = [
         clean(lon), clean(lat)
     ) for city, state, country, lon, lat in loc_deduped.to_records(index=False)
 ]
+
+deduped['has_coords'] = (
+    deduped['longitude'].notna() &
+    deduped['latitude'].notna()
+)
+
+# sort so ones with coord come first
+deduped = deduped.sort_values(
+    by='has_coords',
+    ascending=False
+)
+
+# drop duplicates (ones with no coords)
+loc_deduped = deduped.drop_duplicates(
+    subset=['city','state','country'],
+    keep='first'
+)[['city','state','country','longitude','latitude']]
+
+# drop helper column
+deduped.drop(columns='has_coords', inplace=True)
+
+loc_rows = [
+    (
+        clean(city), clean(state), clean(country),
+        clean(lon), clean(lat)
+    )
+    for city, state, country, lon, lat
+    in loc_deduped.to_records(index=False)
+]
+
+
 cur.executemany(
     """
     INSERT IGNORE INTO Location
@@ -97,14 +128,12 @@ cnx.commit()
 
 # build location map to match location ids to sightings further on
 cur.execute(
-    "SELECT LocationID, City, State, Country, Longitude, Latitude FROM Location"
+    "SELECT LocationID, City, State, Country FROM Location"
 )
 loc_map = {}
-for lid, city, state, country, lon, lat in cur.fetchall():
+for lid, city, state, country in cur.fetchall():
     loc_map[(
         city, state, country,
-        float(lon) if lon is not None else None,
-        float(lat) if lat is not None else None
     )] = lid
 # seed default Location for missing keys
 cur.execute(
@@ -166,8 +195,7 @@ for uid, speed, shape, color, multi in cur.fetchall():
 sight_rows = []
 for row in deduped.itertuples(index=False):
     loc_key = (
-        row.city, row.state, row.country,
-        clean(row.longitude), clean(row.latitude)
+        row.city, row.state, row.country
     )
     ufo_key = (
         clean(row.speed), row.shape, row.color, bool(row.multiplecrafts)
