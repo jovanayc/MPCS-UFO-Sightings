@@ -21,3 +21,4 @@ env/
 *.csv
 *.json
 *.xlsx
+.DS_Store
