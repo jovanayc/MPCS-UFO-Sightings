@@ -30,9 +30,9 @@ tables['Location'] = (
     """
     CREATE TABLE IF NOT EXISTS Location(
         LocationID   INT NOT NULL AUTO_INCREMENT,
-        City         VARCHAR(50),
-        State        VARCHAR(50),
-        Country      VARCHAR(50)  NOT NULL,
+        City         VARCHAR(100),
+        State        VARCHAR(100),
+        Country      VARCHAR(100)  NOT NULL,
         Longitude    DECIMAL(8,5),
         Latitude     DECIMAL(8,5),
         PRIMARY KEY (LocationID)
@@ -70,6 +70,8 @@ tables['HistoricalEvent'] = (
     );
     """
 )
+
+# changes: added foreign key eventid
 tables['Article'] = (
     """
     CREATE TABLE IF NOT EXISTS Article(

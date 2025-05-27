@@ -1,6 +1,4 @@
 import pandas as pd
-import mysql.connector
-
 
 # helper function to add keyword data to database. called from populate_database module
 def insert_keyword_data(cnx):
@@ -34,4 +32,3 @@ def insert_keyword_data(cnx):
     cnx.commit()
     cur.close()
     return
-

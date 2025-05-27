@@ -2,3 +2,4 @@ my-sql-connector
 kagglehub
 pandas
 np
+beautifulsoup4

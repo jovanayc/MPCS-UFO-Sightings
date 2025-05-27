@@ -3,6 +3,7 @@ import mysql.connector
 import math
 import re
 from insert_keyword_data import insert_keyword_data
+from insert_events_articles import add_events
 
 # change this to your mysql password to run
 MYPASSWORD = 'porcu555'
@@ -10,7 +11,13 @@ MYPASSWORD = 'porcu555'
 deduped = pd.read_csv(
     '../clean-data/ufo-data/combined_deduped.csv',
     low_memory=False,
-    parse_dates=['occurred', 'date_reported']
+    parse_dates=['date_reported']
+)
+
+deduped['occurred'] = pd.to_datetime(
+    deduped['occurred'],
+    format='%m/%d/%Y %H:%M',
+    errors='coerce'
 )
 
 # # normalize column names to lowercase
@@ -117,6 +124,8 @@ loc_rows = [
 ]
 
 
+# insert ignore is similar to insert distinct except that it will just continue if 
+# it encounters an error with a particular line
 cur.executemany(
     """
     INSERT IGNORE INTO Location
@@ -222,9 +231,10 @@ cur.executemany(
 )
 cnx.commit()
 
-# call helper function to insert keyword data since it must be done after the locations are 
-# in the table.
+# call helper functions to insert additional since it must be done after the
+# locations are in the table.
 insert_keyword_data(cnx)
+add_events(cnx)
 
 cur.close()
 cnx.close()
