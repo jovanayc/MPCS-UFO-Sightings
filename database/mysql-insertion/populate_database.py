@@ -41,8 +41,8 @@ deduped['multiplecrafts'] = deduped['summary'].str.contains(r'\bmultiple\b', cas
 
 # derive color from summary if missing... this is a pretty short list, so it may not capture everything
 known_colors = [
-    'red','blue','green','black','white','orange','yellow',
-    'purple','silver','gold','brown','grey','gray','pink'
+    'red','blue','green','black','white','orange','yellow', 'beige', 'purplish'
+    'purple','silver','gold','brown','grey','gray','pink', 'orangish', 'reddish', 'whitish'
 ]
 def extract_color(text):
     # try to match variants ending in -ish (e.g., greenish, grayish)
