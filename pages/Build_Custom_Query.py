@@ -54,3 +54,4 @@ if st.button("Save Query"):
         st.success(f"Saved '{query_name}' as a new template!")
     else:
         st.warning("Please enter a name before saving.")
+        

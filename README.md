@@ -36,7 +36,7 @@ Source Control: GitHub
     password = "your-db-password"
     database = "ufo_db"
 - Run the app
-    streamlit run UFO_Sightings_App.py 
+    streamlit run UFO_App.py 
 
 **How to Run and Inspect the MySQL Database Locally**
 In order to check that the database is properly built and populated on your own machine, follow these steps.
