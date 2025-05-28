@@ -32,7 +32,3 @@ To build and populate the table (as it exists so far) follow these steps:
 
 5. Once it's loaded, you can check it out and MySQL and provide feedback as desired! I will 
     work on getting the articles/historical events section done before our meeting tomorrow.
-
-Note: I wanted to be able to add a sample of the data to the GitHub repo, but unfortunately
-without creating entirely fake data, that created a series of dependency issues re various
-IDs and relationships, and no data would load successfully. Sorry!
