@@ -22,10 +22,7 @@ cursor.execute("CREATE DATABASE IF NOT EXISTS UFO;")
 cursor.execute("USE UFO;")
 
 tables = {}
-# Carter, I like the decision you made about where to put long and lat 
-# these seem to be mostly geocoded by city, and aren't unique per sighting
-# so this reduces redundancy. Made some slight changes to not null values 
-# during debugging because the data is not totally uniform
+
 tables['Location'] = (
     """
     CREATE TABLE IF NOT EXISTS Location(
@@ -88,9 +85,7 @@ tables['Article'] = (
     );
     """
 )
-# changes: a couple of field name changes (Occurred, Date Reported, Summary)
-# changed duration to a time because of how I chose to parse that data
-# I think on delete should be cascade for sighting id – what do you both think?
+
 tables['Sightings'] = (
     """
     CREATE TABLE IF NOT EXISTS Sightings(
@@ -114,11 +109,7 @@ tables['Sightings'] = (
 )
 
 # changes: separated this into two small tables to solve the 
-# problem of how to make keywords distinct. Now there is a table
-# for which keywords are used in which sighting summaries – this 
-# will save on lengthy string search queries, imo, but curious what
-# you both think. It follows the 3nf requirements to make this a 
-# separate table, too.
+# problem of how to make keywords distinct. 
 tables['KeywordTag'] = (
     """
     CREATE TABLE IF NOT EXISTS KeywordTag(
@@ -143,8 +134,7 @@ tables['KeywordsInSighting'] = (
     """
 )
 
-# adding a separate table for event keywords – I couldn't figure out how to combine these
-# easily and I think there might be reasons to keep them separate.
+# adding a separate table for event keywords 
 tables['EventKeywordTag'] = (
     """
     CREATE TABLE IF NOT EXISTS EventKeywordTag(
