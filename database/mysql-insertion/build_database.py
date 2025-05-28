@@ -2,10 +2,15 @@ import mysql.connector as mysc
 from mysql.connector import errorcode
 
 # remember to fill in with your own pwd!
+# config = {
+#     'user':     'root',
+#     'password': 'porcu555',
+#     'host':     'localhost',
+# }
 config = {
-    'user':     'root',
-    'password': 'porcu555',
-    'host':     'localhost',
+    'user': 'root',
+    'password': 'J0vvie3315!',
+    'host': 'localhost',
 }
 
 try:

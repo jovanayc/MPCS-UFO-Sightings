@@ -6,7 +6,7 @@ from insert_keyword_data import insert_keyword_data
 from insert_events_articles import add_events
 
 # change this to your mysql password to run
-MYPASSWORD = 'porcu555'
+MYPASSWORD = 'J0vvie3315!'
 
 deduped = pd.read_csv(
     '../clean-data/ufo-data/combined_deduped.csv',

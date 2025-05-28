@@ -1,28 +1,34 @@
-import streamlit as st
-from datetime import date
-from constants import UFO_SHAPES, STATE_LIST
+# Pulls query titles from columns in Sightings, UFO, and Location tables
+# Within the UFO database in mysql
 
-st.set_page_config(page_title="Build Custom Query", layout="centered")
+from datetime import date
+import streamlit as st
+from constants import UFO_SHAPES, UFO_COLORS, STATE_LIST
+
 st.title("Build Your Own UFO Query")
 
-st.markdown("Use filters below to create a custom search across UFO sightings.")
+st.markdown("Use any combination of filters to find UFO sightings. All filters are optional.")
 
-# --- Filter Inputs ---
-date_range = st.date_input("Date Range", value=(date(2020, 1, 1), date.today()))
+# Filters
+date_range = st.date_input("Occurred Between", value=(date(1940, 5, 28), date.today()))
 selected_states = st.multiselect("State(s)", STATE_LIST)
-selected_shapes = st.multiselect("Shape(s)", UFO_SHAPES)
-credibility_range = st.slider("Credibility Score Range", 0.0, 10.0, (4.0, 9.0))
+selected_shapes = st.multiselect("UFO Shape(s)", UFO_SHAPES)
+selected_colors = st.multiselect("UFO Color(s)", UFO_COLORS)
+multiple_crafts = st.selectbox("Were there multiple crafts?", ["Any", "Yes", "No"])
+summary_keywords = st.text_input("Search keyword in summary (use commas to seperate words)", placeholder="e.g. lights, triangle, military")
 
-# --- Run Query Button ---
+# Run Custom Query Button
 if st.button("Run Custom Query"):
-    st.success("✅ Custom query would be executed here with selected filters (mock for now).")
-    st.write("Filters applied:")
-    st.json({
+    filters = {
         "date_range": [str(d) for d in date_range],
         "states": selected_states,
         "shapes": selected_shapes,
-        "credibility": credibility_range,
-    })
+        "colors": selected_colors,
+        "multiple_crafts": multiple_crafts,
+        "summary_keywords": summary_keywords,
+    }
+    st.success("✅ Custom query would be executed with the following filters:")
+    st.json(filters)
 
 # --- Save as Template ---
 st.markdown("---")
@@ -37,7 +43,9 @@ if st.button("Save Query"):
                 "date_range": [str(d) for d in date_range],
                 "states": selected_states,
                 "shapes": selected_shapes,
-                "credibility": credibility_range
+                "colors": selected_colors,
+                "multiple_crafts": multiple_crafts,
+                "summary_keywords": summary_keywords,
             }
         }
         if "saved_templates" not in st.session_state:

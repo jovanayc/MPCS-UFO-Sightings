@@ -1,0 +1,105 @@
+USE ufo;
+
+
+-- Total Sightings Per Year (THIS WORKS) 1
+SELECT YEAR(Occurred) as VisitedYear, COUNT(*) as TotalSightings
+    FROM Sightings
+    GROUP BY YEAR(Occurred)
+    ORDER BY VisitedYear;
+    
+-- UFO sightings by country (THIS WORKS) 2
+    SELECT Country, COUNT(*) as SightingsPerCountry
+    FROM Location
+    WHERE Country IS NOT NULL
+    GROUP BY Country
+    ORDER BY Country ASC;
+    
+-- Query for filtering by seasons (THIS WORKS) 3
+    SELECT
+    Location.Country,
+    CASE
+        WHEN MONTH(Sightings.Occurred) IN (12, 1, 2) THEN 'Winter'
+        WHEN MONTH(Sightings.Occurred) IN (3, 4, 5) THEN 'Spring'
+        WHEN MONTH(Sightings.Occurred) IN (6, 7, 8) THEN 'Summer'
+        WHEN MONTH(Sightings.Occurred) IN (9, 10, 11) THEN 'Fall'
+    END AS SightingSeason,
+    COUNT(*) AS SeasonalSighting
+FROM Sightings
+JOIN Location ON Sightings.LocationID = Location.LocationID
+WHERE Location.Country = 'USA'
+GROUP BY Location.Country, SightingSeason 
+ORDER BY SeasonalSighting DESC;
+
+-- Number of referenced articles related to the most famous UFO locations (THIS WORKS) 4
+SELECT Article.ArticleTitle, COUNT(*) AS ReferenceCount
+FROM Sightings
+JOIN Location ON Sightings.LocationID = Location.LocationID
+JOIN HistoricalEvent ON Location.LocationID = HistoricalEvent.LocationID
+JOIN Article ON HistoricalEvent.EventID = Article.EventID
+WHERE Location.City IN ('Roswell', 'Phoenix', 'North Bergen')
+AND Article.ArticleTitle IS NOT NULL AND Article.ArticleTitle <> ''
+GROUP BY Article.ArticleTitle
+ORDER BY ReferenceCount DESC;
+
+-- Speed by year of UFO sightings (THIS WORKS) 5
+SELECT YEAR(Sightings.Occurred) AS SightedYear, ROUND(AVG(UFO.Speed)) AS AverageSpeed, COUNT(*) AS Sightings
+FROM UFO
+JOIN Sightings ON Sightings.UFOID = UFO.UFOID
+WHERE UFO.Speed IS NOT NULL
+GROUP BY SightedYear
+ORDER BY SightedYear;
+
+-- Pulls the most witnessed UFO sightings (THIS WORKS) 6
+SELECT Location.City, Location.State, COUNT(*) AS Witnesses, UFO.Shape, DATE(Sightings.Occurred) AS VisitedDay
+FROM UFO
+JOIN Sightings ON Sightings.UFOID = UFO.UFOID
+JOIN Location ON Sightings.LocationID = Location.LocationID
+WHERE Location.City IS NOT NULL
+GROUP BY Location.City, Location.State, UFO.Shape, VisitedDay
+HAVING Witnesses > 3
+ORDER BY Witnesses DESC;
+
+-- Most common shapes seen by country top 100 (THIS WORKS) 7
+SELECT Location.Country, UFO.Shape, COUNT(*) AS CountryCount
+FROM UFO
+JOIN Sightings ON UFO.UFOID = Sightings.UFOID
+JOIN Location ON Sightings.LocationID = Location.LocationID
+WHERE Location.Country <> 'unknown'
+GROUP BY Location.Country, UFO.Shape
+ORDER BY CountryCount DESC
+LIMIT 100;
+
+-- Instances of UFO's with a description of a military base (THIS WORKS) 8
+SELECT UFO.Shape, Sightings.Duration, Location.City, Location.State, Sightings.Occurred
+FROM UFO
+JOIN Sightings ON UFO.UFOID = Sightings.UFOID
+JOIN Location ON Location.LocationID = Sightings.LocationID
+WHERE Sightings.Summary LIKE '%BASE%' OR Sightings.Summary LIKE '%Military%'
+ORDER BY Sightings.Duration DESC;
+
+
+-- Illinois sightings during summer months (THIS WORKS) 9
+SELECT UFO.Shape, COUNT(*) AS ShapeSightings
+FROM UFO
+JOIN Sightings ON UFO.UFOID = Sightings.UFOID
+JOIN Location ON Sightings.LocationID = Location.LocationID
+WHERE Location.State = 'IL' AND MONTH(Sightings.Occurred) IN (6,7,8)
+GROUP BY UFO.Shape
+ORDER BY UFO.Shape;
+
+-- Chicago sightings during the past 5 years (THIS WORKS) 10
+SELECT Sightings.Occurred, Location.City, Location.State, UFO.Shape, Sightings.Summary
+FROM Sightings
+JOIN Location ON Sightings.LocationID = Location.LocationID
+JOIN UFO ON Sightings.UFOID = UFO.UFOID
+WHERE Location.City = 'Chicago' AND Sightings.Occurred > '2020-12-31'
+   
+Need to do
+- Final ER Diagrams and notes on changes -> Final ERD 
+- Queries - most likely city and shape 
+- Run after finalized on queries
+- 
+
+
+
+

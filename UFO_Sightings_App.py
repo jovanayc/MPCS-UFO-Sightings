@@ -1,7 +1,8 @@
 import streamlit as st
-from mock_queries import run_mock_query, run_custom_mock_query
+# from mock_queries import run_mock_query, run_custom_mock_query
+from preset_query_runner import run_preset_query
 from side_panel.new_sighting import show_insert_form
-from preset_queries import PRESET_QUERIES
+from preset_queries_list import PRESET_QUERIES
 
 # for pre-set and template query imports
 dynamic_templates = [t["name"] for t in st.session_state.get("saved_templates", [])]
@@ -108,4 +109,4 @@ if st.session_state.get("confirm_delete_index") is not None:
 
 # --- Display results section ---
 if st.session_state.get("last_query") and st.session_state.get("show_results"):
-    run_mock_query(st.session_state.last_query)
+    run_preset_query(st.session_state.last_query)

@@ -1,4 +1,4 @@
-my-sql-connector
+mysql-connector-python
 kagglehub
 pandas
 np

@@ -36,8 +36,35 @@ Source Control: GitHub
     password = "your-db-password"
     database = "ufo_db"
 - Run the app
-    streamlit run ufo_app.py
+    streamlit run UFO_Sightings_App.py 
 
-
+**How to Run and Inspect the MySQL Database Locally**
+In order to check that the database is properly built and populated on your own machine, follow these steps.
+- Start MySQL Server (if not already running):
+    brew services start mysql
+- Log Into MySQL
+    mysql -u root -p
+    Then senter your root password (same as in populated_database.py)
+- List all available databases
+    SHOW DATABASES;
+- See UFO Database
+    USE UFO;
+- List All Tables
+    SHOW TABLES;
+    # TABLES SHOULD INCLUDE:
+        | Article            |
+        | EventKeywordTag    |
+        | HistoricalEvent    |
+        | KeywordsInEvent    |
+        | KeywordsInSighting |
+        | KeywordTag         |
+        | Location           |
+        | Sightings          |
+        | UFO     
+- View data in Tables
+    SELECT * FROM Sighting LIMIT 10;
+- Repeat for any other table you would like to verify
+    SELECT * FROM UFO LIMIT 10;
+    SELECT * FROM Keyword LIMIT 10;
 
 
