@@ -3,6 +3,7 @@
 UFO_SHAPES = ["Disc", "Triangle", "Light", "Fireball", "Other"]
 
 STATE_LIST = [
+    "ALL", #special option 
     "AL", "AK", "AZ", "AR", "CA", "CO", "CT", "DE", "FL", "GA",
     "HI", "ID", "IL", "IN", "IA", "KS", "KY", "LA", "ME", "MD",
     "MA", "MI", "MN", "MS", "MO", "MT", "NE", "NV", "NH", "NJ",
@@ -14,3 +15,5 @@ UFO_COLORS = [
     "red", "Unknown", "black", "green", "blue", "orange", "white", "yellow", "silver",
     "grey", "orangish", "gold", "brown", "reddish", "gray", "pink", "whitish", "beige"
 ]
+
+multiple_crafts = [True, False]

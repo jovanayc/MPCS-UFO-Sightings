@@ -1,5 +1,5 @@
 # preset_queries_filters.py
-# for pre-filling the Build Custom Query form and editting preset queries.
+# for pre-filling the Build Custom Query form and editing preset queries.
 
 PRESET_FILTERS = {
     "Total Sightings Per Year": None,  # Not filter-based; aggregate query
@@ -14,9 +14,9 @@ PRESET_FILTERS = {
         "duration": ""
     },
 
-    "Sightings by Season in USA": {
+    "Seasonal Sightings in the USA": {
         "date_range": ["1940-01-01", "2025-12-31"],
-        "states": [],
+        "states": ["ALL"],
         "shapes": [],
         "colors": [],
         "multiple_crafts": "Any",
@@ -24,7 +24,7 @@ PRESET_FILTERS = {
         "duration": ""
     },
 
-    "Article Mentions in Famous UFO Locations": {
+    "Articles Related to Famous Locations": {
         "date_range": ["1940-01-01", "2025-12-31"],
         "states": [],
         "shapes": [],
@@ -34,7 +34,7 @@ PRESET_FILTERS = {
         "duration": ""
     },
 
-    "Average UFO Speed Per Year": None,  # Not filter-based; aggregates all with Speed
+    "Average Speed by Year": None,  # Not filter-based; aggregates all with Speed
 
     "Most Witnessed Sightings": {
         "date_range": ["1940-01-01", "2025-12-31"],
@@ -46,7 +46,7 @@ PRESET_FILTERS = {
         "duration": ""
     },
 
-    "Top 100 Shapes by Country": {
+    "Top 100 UFO Shapes by Country": {
         "date_range": ["1940-01-01", "2025-12-31"],
         "states": [],
         "shapes": [],
@@ -66,7 +66,7 @@ PRESET_FILTERS = {
         "duration": ""
     },
 
-    "Illinois Sightings in Summer": {
+    "Illinois Summer Sightings": {
         "date_range": ["1940-06-01", "2025-08-31"],
         "states": ["IL"],
         "shapes": [],
@@ -76,8 +76,8 @@ PRESET_FILTERS = {
         "duration": ""
     },
 
-    "Recent Chicago Sightings": {
-        "date_range": ["2021-01-01", "2025-12-31"],
+    "Chicago Sightings (Past 5 Years)": {
+        "date_range": ["2020-01-01", "2025-12-31"],
         "states": ["IL"],
         "shapes": [],
         "colors": [],
@@ -85,4 +85,4 @@ PRESET_FILTERS = {
         "summary_keywords": "Chicago",
         "duration": ""
     }
-} 
+}

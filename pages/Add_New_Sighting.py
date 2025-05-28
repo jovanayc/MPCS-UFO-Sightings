@@ -1,9 +1,14 @@
 # Add_New_Sighting.py
+
+import sys, os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
 import streamlit as st
 from datetime import date, datetime
 from constants import UFO_SHAPES, UFO_COLORS
-from database.db_utils import get_connection
 from database.insert_sighting import insert_new_sighting
+from utils.db_utils import get_connection
+
 
 st.title("Report a New UFO Sighting")
 

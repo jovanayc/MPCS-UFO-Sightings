@@ -1,5 +1,5 @@
 from datetime import datetime
-from database.db_utils import get_connection
+from utils.db_utils import get_connection
 
 def insert_new_sighting(data):
     """
