@@ -1,12 +1,10 @@
 import mysql.connector as mysc
 from mysql.connector import errorcode
 
-# remember to fill in with your own pwd!
-# config = {
-#     'user':     'root',
-#     'password': 'porcu555',
-#     'host':     'localhost',
-# }
+#run mysql -u root -p
+#temp password = Soq.kPy1DlhD
+#change password: ALTER USER 'root'@'localhost' IDENTIFIED BY '[newpassword]';
+
 config = {
     'user': 'root',
     'password': 'J0vvie3315!',
@@ -94,7 +92,7 @@ tables['Article'] = (
 tables['Sightings'] = (
     """
     CREATE TABLE IF NOT EXISTS Sightings(
-        SightingID          INT      NOT NULL,
+        SightingID          INT      NOT NULL AUTO_INCREMENT,
         Summary             VARCHAR(800),
         Duration            TIME,
         UFOID               INT      ,

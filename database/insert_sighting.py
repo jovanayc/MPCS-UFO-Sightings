@@ -1,11 +1,7 @@
 from datetime import datetime
-from utils.db_utils import get_connection
+from utils.db_utils import get_connection  # Make sure this is correct
 
 def insert_new_sighting(data):
-    """
-    Inserts a new UFO sighting into the database using the provided data dictionary.
-    The dictionary must include keys: city, state, country, shape, color, multiple_crafts, summary, duration, date_occurred
-    """
     try:
         conn = get_connection()
         cursor = conn.cursor()
@@ -38,28 +34,31 @@ def insert_new_sighting(data):
         ))
         sighting_id = cursor.lastrowid
 
-        # 4. Insert Keywords (if any)
+        # 4. Insert Keywords using KeywordTag and KeywordsInSighting
         keywords = [kw.strip().lower() for kw in data["summary"].split(",") if kw.strip()]
         for kw in keywords:
-            cursor.execute("SELECT KeywordID FROM Keyword WHERE Word = %s", (kw,))
+            # Check if keyword already exists
+            cursor.execute("SELECT TagID FROM KeywordTag WHERE Keyword = %s", (kw,))
             result = cursor.fetchone()
             if result:
                 keyword_id = result[0]
             else:
-                cursor.execute("INSERT INTO Keyword (Word) VALUES (%s)", (kw,))
+                cursor.execute("INSERT INTO KeywordTag (Keyword) VALUES (%s)", (kw,))
                 keyword_id = cursor.lastrowid
 
-            cursor.execute("""
-                INSERT INTO KeywordMap (KeywordID, SightingID)
-                VALUES (%s, %s)
-            """, (keyword_id, sighting_id))
+            cursor.execute(
+                "INSERT INTO KeywordsInSighting (TagID, SightingID) VALUES (%s, %s)",
+                (keyword_id, sighting_id)
+            )
 
         conn.commit()
-        return True, "✅ New sighting inserted into database!"
+        return True, "✅ New sighting inserted into database!", sighting_id
 
     except Exception as e:
-        return False, f"❌ Failed to insert sighting: {e}"
+        return False, f"❌ Failed to insert sighting: {e}", None
 
     finally:
-        if cursor: cursor.close()
-        if conn: conn.close()
+        if cursor:
+            cursor.close()
+        if conn:
+            conn.close()
