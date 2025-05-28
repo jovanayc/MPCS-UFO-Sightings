@@ -35,6 +35,7 @@ Source Control: GitHub
     user = "your-db-username"
     password = "your-db-password"
     database = "ufo_db"
+- Add the large data files called 'ufo-data' that you have stored locally to database/cleandata/[ufo-data]
 - Run the app
     streamlit run UFO_App.py 
 
