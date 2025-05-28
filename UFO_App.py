@@ -1,7 +1,6 @@
 import streamlit as st
 # from mock_queries import run_mock_query, run_custom_mock_query
 from preset_query_runner import run_preset_query
-from side_panel.new_sighting import show_insert_form
 from preset_queries_list import PRESET_QUERIES
 
 # for pre-set and template query imports
@@ -16,6 +15,7 @@ if "query_history" not in st.session_state:
 
 if "last_query" not in st.session_state:
     st.session_state.last_query = None
+
 
 if "confirm_delete_index" not in st.session_state:
     st.session_state.confirm_delete_index = None
@@ -51,11 +51,12 @@ if run_query:
     selected_query = all_queries[query_number - 1]
     st.session_state.last_query = selected_query
     st.session_state.query_history.append(selected_query)
+    st.session_state.show_results = True
 
 # --- Side panel ---
 st.sidebar.markdown("## Pre-Templated Queries")
 
-# Static (built-in) queries
+# Static pre-built queries
 for i, query in enumerate(PRESET_QUERIES, 1):
     if st.sidebar.button(f"# {i}) {query}", key=f"preset-{i}"):
         st.session_state.last_query = query
@@ -66,7 +67,7 @@ for i, query in enumerate(PRESET_QUERIES, 1):
 st.sidebar.markdown("---")
 st.sidebar.markdown("## 🧩 Custom Queries")
 
-# --- Custom Queries Section ---
+# For Custom Queries Section
 if "saved_templates" in st.session_state and st.session_state.saved_templates:
     for j, template in enumerate(st.session_state.saved_templates):
         name = template["name"]
