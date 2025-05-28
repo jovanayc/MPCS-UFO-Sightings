@@ -1,2 +1,3 @@
 streamlit
-my-sql-connector
+python-dotenv
+mysql-connector-python
