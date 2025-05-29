@@ -13,18 +13,6 @@ st.title("Build Your Own UFO Query")
 
 st.markdown("Use any combination of filters to find UFO sightings. All filters are optional.")
 
-# Sidebar panel to display saved custom queries
-st.sidebar.title("🔖 Saved Queries")
-if st.session_state.get("saved_templates"):
-    for template in st.session_state.saved_templates:
-        if st.sidebar.button(template["name"]):
-            st.session_state.prefill_filters = template["filters"]
-            st.session_state.last_query = "Custom Query"
-            st.session_state.show_results = True
-            st.rerun()
-else:
-    st.sidebar.info("No saved queries yet.")
-
 # for prefilled filters if called
 prefill = st.session_state.get("prefill_filters", {})
 
@@ -60,28 +48,6 @@ if st.button("Run Custom Query"):
     st.session_state.show_results = True
 
     st.success("✅ Custom query executed")
-
-# --- Save as Template ---
-st.markdown("---")
-st.subheader("Save This Query as a New Template")
-query_name = st.text_input("Give this query a name:")
-
-if st.button("Save Query"):
-    if query_name:
-        new_template = {
-            "name": query_name,
-            "filters": {
-                "date_range": [str(d) for d in date_range],
-                "states": selected_states,
-                "summary_keywords": summary_keywords,
-            }
-        }
-        if "saved_templates" not in st.session_state:
-            st.session_state.saved_templates = []
-        st.session_state.saved_templates.append(new_template)
-        st.success(f"Saved '{query_name}' as a new template!")
-    else:
-        st.warning("Please enter a name before saving.")
 
 
 # Run results after query form is submitted

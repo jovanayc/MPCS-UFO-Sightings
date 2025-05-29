@@ -23,10 +23,10 @@ def run_preset_query(query_title):
         st.error("Unknown query title.")
         return
 
-    # Load associated filters for this query, if available
-    filters = PRESET_FILTERS.get(query_title)
-    if filters:
-        st.session_state.prefill_filters = filters
+    # # Load associated filters for this query, if available
+    # filters = PRESET_FILTERS.get(query_title)
+    # if filters:
+    #     st.session_state.prefill_filters = filters
 
     try:
         conn = get_connection()
