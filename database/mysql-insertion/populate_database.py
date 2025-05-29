@@ -204,33 +204,31 @@ for uid, speed, shape, color, multi in cur.fetchall():
 # insert sightings
 sight_rows = []
 for row in deduped.itertuples(index=False):
-    loc_key = (
-        row.city, row.state, row.country
-    )
-    ufo_key = (
-        clean(row.speed), row.shape, row.color, bool(row.multiplecrafts)
-    )
-    sight_rows.append(
-        (
-            int(row.sighting_id),
-            clean(row.summary),
-            clean(row.duration),
-            ufo_map.get(ufo_key), # here is where the maps are used
-            loc_map.get(loc_key, default_loc_id),
-            row.occurred,
-            row.date_reported
-        )
-    )
+    loc_key = (row.city, row.state, row.country, row.longitude, row.latitude)
+    sight_rows.append((
+        int(row.sighting_id),
+        clean(row.summary),
+        clean(row.duration),
+        ufo_map.get((clean(row.speed), row.shape, row.color, bool(row.multiplecrafts))),
+        loc_map.get(loc_key, default_loc_id),
+        row.occurred,
+        row.date_reported,
+        bool(row.media),
+        clean(row.explanation),
+        row.detail_url
+    ))
 
 cur.executemany(
     """
     INSERT IGNORE INTO Sightings
-      (SightingID, Summary, Duration, UFOID, LocationID, Occurred, DateReported)
-    VALUES (%s, %s, %s, %s, %s, %s, %s)
+      (SightingID, Summary, Duration, UFOID, LocationID,
+       Occurred, DateReported, Media, Explanation, DetailURL)
+    VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
     """,
     sight_rows
 )
 cnx.commit()
+
 
 # call helper functions to insert additional since it must be done after the
 # locations are in the table.

@@ -22,3 +22,4 @@ except mysc.Error as err:
 cursor.execute("SELECT MAX(SightingID) AS max_id FROM Sightings;")
 max_id = cursor.fetchone()[0]
 print(max_id)
+max_id += 1

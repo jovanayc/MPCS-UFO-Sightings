@@ -96,6 +96,9 @@ tables['Sightings'] = (
         LocationID          INT      ,
         Occurred            DATETIME NOT NULL,
         DateReported        DATE NOT NULL,
+        Media               Bool,
+        Explanation         VARCHAR(60),
+        DetailURL           VARCHAR(255),
         PRIMARY KEY (SightingID),
         -- ON DELETE CASCADE or RESTRICT?
         FOREIGN KEY (LocationID)
