@@ -77,23 +77,6 @@ def run_custom_query(filters):
         query += f" AND Location.State IN ({placeholders})"
         params.extend(filters["states"])
 
-    # Add shapes
-    if filters.get("shapes") and "All" not in filters["shapes"]:
-        placeholders = ", ".join(["%s"] * len(filters["shapes"]))
-        query += f" AND Shape IN ({placeholders})"
-        params.extend(filters["shapes"])
-
-    # Add colors
-    if filters.get("colors") and "All" not in filters["colors"]:
-        placeholders = ", ".join(["%s"] * len(filters["colors"]))
-        query += f" AND Color IN ({placeholders})"
-        params.extend(filters["colors"])
-
-    # Add multiple crafts
-    if filters.get("multiple_crafts") and filters["multiple_crafts"] != "Any":
-        query += " AND MultipleCrafts = %s"
-        params.append(filters["multiple_crafts"])
-
     # Add keyword search
     if filters.get("summary_keywords"):
         keywords = [kw.strip() for kw in filters["summary_keywords"].split(",")]

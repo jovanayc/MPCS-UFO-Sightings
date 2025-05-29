@@ -63,7 +63,7 @@ In order to check that the database is properly built and populated on your own 
         | Sightings          |
         | UFO     
 - View data in Tables
-    SELECT * FROM Sighting LIMIT 10;
+    SELECT * FROM Sightings LIMIT 10;
 - Repeat for any other table you would like to verify
     SELECT * FROM UFO LIMIT 10;
     SELECT * FROM Keyword LIMIT 10;
