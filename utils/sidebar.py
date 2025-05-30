@@ -17,7 +17,6 @@ def show_sidebar_queries():
             selected_states = filters.get("states", [])
             if "All" in selected_states:
                 selected_states = []
-            selected_states = st.multiselect("State(s)", STATE_LIST, default=selected_states, key=f"state-{i}")
             selected_shapes = st.multiselect("UFO Shape(s)", UFO_SHAPES, default=filters.get("shapes", []), key=f"shape-{i}")
             selected_colors = st.multiselect("UFO Color(s)", UFO_COLORS, default=filters.get("colors", []), key=f"color-{i}")
             multiple_crafts = st.selectbox("Multiple Crafts?", ["Any", "Yes", "No"], index=["Any", "Yes", "No"].index(filters.get("multiple_crafts", "Any")), key=f"multi-{i}")
